@@ -4,7 +4,7 @@
 #include <math.h>  
 
 using namespace std;
-
+//FINDME!!!!!
 //function decleration
 
 bool random_bool_with_prob(double);
