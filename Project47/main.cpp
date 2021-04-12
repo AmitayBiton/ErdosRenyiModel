@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include <math.h>  
+#include <fstream>
 
 using namespace std;
 //function decleration
@@ -16,7 +17,7 @@ double threshold2(Graph);
 int firstHabitApplies(Graph, double);
 int secondHabitApplies(Graph, double);
 int thirdHabitApplies(Graph, double);
-
+void exportResultToCsv(double* , double* , string );
 
 //random
 std::knuth_b rand_engine;
@@ -24,7 +25,6 @@ std::uniform_real_distribution<> uniform_zero_to_one(0.0, 1.0);
 
 
 void main() {
-	
 	/*
 	first habit - graph with 1000 vertex:
 
@@ -33,25 +33,31 @@ void main() {
 	               V          1000
 	
 	*/
-	
-	double* firstHabitPList = new double[10];
-	firstHabitPList[0] = 0.004;
-	firstHabitPList[1] = 0.0045;
-	firstHabitPList[2] = 0.005;
-	firstHabitPList[3] = 0.0055;
-	firstHabitPList[4] = 0.006;
-	firstHabitPList[5] = 0.0075;
-	firstHabitPList[6] = 0.008;
-	firstHabitPList[7] = 0.0085;
-	firstHabitPList[8] = 0.009;
-	firstHabitPList[9] = 0.0095;
-	
-	/*
-	TODO:
-	foreach p in firstHabitPList genetate 500 graphs and detemine how many of them applies to habit 1
+	int numberOfSamples = 15;
 
-	*/
 
+
+	double firstHabitPList[] = { 0.004 ,0.0045 ,0.005 ,0.0055 ,0.006 ,0.0075 ,0.008 ,0.0085 ,0.009 ,0.0095 };
+	double* firstHabitResults = new double[10];
+	
+
+	for (int p = 0; p < 10; p++) 
+	{
+		double countOfFirst = 0;
+		cout << "generating graphs with probability: " << firstHabitPList[p] << endl;
+		for (int i = 0; i < numberOfSamples; i++)
+		{
+			Graph g = build_random_graph(1000, firstHabitPList[p]);
+			if(firstHabitApplies(g, firstHabitPList[p]) == 1)
+			{
+				countOfFirst++;
+			}
+			
+		}
+		firstHabitResults[p] = countOfFirst/numberOfSamples;
+	}
+
+	exportResultToCsv(firstHabitPList, firstHabitResults, "habit1Results.csv");
 
 
 	/*
@@ -62,23 +68,28 @@ void main() {
 				 \|    V         
 
 	*/
-	double* secondHabitPList = new double[10];
-	secondHabitPList[0] = 0.075;
-	secondHabitPList[1] = 0.08;
-	secondHabitPList[2] = 0.085;
-	secondHabitPList[3] = 0.09;
-	secondHabitPList[4] = 0.1;
-	secondHabitPList[5] = 0.2;
-	secondHabitPList[6] = 0.25;
-	secondHabitPList[7] = 0.3;
-	secondHabitPList[8] = 0.35;
-	secondHabitPList[9] = 0.4;
 
-	/*
-	TODO:
-	foreach p in secondHabitPList genetate 500 graphs and detemine how many of them applies to habit 2
+	double secondHabitPList[] = { 0.075 ,0.08 ,0.085 ,0.09 ,0.1 ,0.2 ,0.25 ,0.3 ,0.35 ,0.4 };
+	double* secondHabitResults = new double[10];
+	
+	for (int p = 0; p < 10; p++)
+	{
+		double countOfSecond = 0;
+		cout << "generating graphs with probability: " << secondHabitPList[p] << endl;
+		for (int i = 0; i < numberOfSamples; i++)
+		{
+			Graph g = build_random_graph(1000, secondHabitPList[p]);
+			if (secondHabitApplies(g, secondHabitPList[p]) == 1)
+			{
+				countOfSecond++;
+			}
 
-	*/
+		}
+		secondHabitResults[p] = countOfSecond / numberOfSamples;
+	}
+
+	exportResultToCsv(secondHabitPList, secondHabitResults, "habit2Results.csv");
+
 
 
 	/*
@@ -88,6 +99,8 @@ void main() {
 	threshold1 = ------- = ---------- = 0.00690776
 				   V          1000
 	*/
+
+	
 
 	double* thirdHabitPList = new double[10];
 	thirdHabitPList[0] = 0.004;
@@ -280,3 +293,23 @@ int thirdHabitApplies(Graph g, double p)
 	return 0;
 }
 
+
+void exportResultToCsv(double* Plist, double* results, string filename)
+{
+	ofstream Habit1File(filename);
+	Habit1File << "P,";
+	for (int p = 0; p < 9; p++)
+	{
+		Habit1File << Plist[p] << ",";
+	}
+	Habit1File << Plist[9] << endl;
+
+	Habit1File << "ApplicationCount,";
+	for (int p = 0; p < 9; p++)
+	{
+		Habit1File << results[p] << ",";
+	}
+	Habit1File << results[9] << endl;
+
+	Habit1File.close();
+}
