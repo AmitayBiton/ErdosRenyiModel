@@ -27,7 +27,7 @@ std::uniform_real_distribution<> uniform_zero_to_one(0.0, 1.0);
 void main() {
 	
 	cout << "generating graphs and validates habits"<<endl;
-	int numberOfSamples = 15;
+	int numberOfSamples = 500;
 	cout << "number of sumples: " << numberOfSamples << endl;
 
 	/*
