@@ -17,6 +17,9 @@ double threshold2(Graph);
 int firstHabitApplies(Graph, double);
 int secondHabitApplies(Graph, double);
 int thirdHabitApplies(Graph, double);
+void firstHabbit(int );
+void secondHabbit(int );
+void thirdHabbit(int );
 void exportResultToCsv(double* , double* , string );
 
 //random
@@ -25,68 +28,89 @@ std::uniform_real_distribution<> uniform_zero_to_one(0.0, 1.0);
 
 
 void main() {
-	
-	cout << "generating graphs and validates habits"<<endl;
+	int select = 0, loop = 0;
+	cout << "Erdos Renyi Model - Excersise" << endl << endl;
 	int numberOfSamples = 500;
 	cout << "number of sumples: " << numberOfSamples << endl;
+	cout << "Run menu once or cyclically?" << endl << "(Cyclically - enter 1): ";
+	
+	
+	cin >> loop;
+	do {
+		cout << endl << "Choose case (Habbit number 1 = 1, Habbit number 2 = 2, Habbit number 3 = 3): ";
+		cin >> select;
 
+		switch (select)
+		{
+		case 1: firstHabbit(numberOfSamples);
+			break;
+		case 2: secondHabbit(numberOfSamples);
+			break;
+		case 3: thirdHabbit(numberOfSamples);
+			break;
+		}
+	} while (loop == 1);
+}
+
+void firstHabbit(int numberOfSamples) {
 	/*
 	first habit - graph with 1000 vertex:
 
 				  ln(V)     ln(1000)
 	threshold1 = ------- = ---------- = 0.00690776
 				   V          1000
-
-	*/
+	*/	
 	
-	cout << "-------------------------------------------------" << endl;
+	cout << endl << "-------------------------------------------------" << endl;
 	cout << "                working on habit 1               " << endl;
 	cout << "-------------------------------------------------" << endl;
 
-	double firstHabitPList[] = { 0.004 ,0.0045 ,0.005 ,0.0055 ,0.006 ,0.0075 ,0.008 ,0.0085 ,0.009 ,0.0095 };
+	double firstHabitPList[] = { 0.002 ,0.0022 ,0.0027 ,0.003 ,0.0035 ,0.007 ,0.0072 ,0.0075 ,0.0077 ,0.0079 };
 	double* firstHabitResults = new double[10];
-	
 
-	for (int p = 0; p < 10; p++) 
+
+	for (int p = 0; p < 10; p++)
 	{
 		cout << endl << endl << "Probability: " << firstHabitPList[p] << endl;
 		double countOfFirst = 0;
 		//cout << "generating graphs with probability: " << firstHabitPList[p] << endl;
 		for (int i = 0; i < numberOfSamples; i++)
-		{	
-			cout << "Progress: " << i+1 << "/" << numberOfSamples << "\r";
+		{
+			cout << "Progress: " << i + 1 << "/" << numberOfSamples << "\r";
 			Graph g = build_random_graph(1000, firstHabitPList[p]);
-			if(firstHabitApplies(g, firstHabitPList[p]) == 1)
+			if (firstHabitApplies(g, firstHabitPList[p]) == 1)
 			{
 				countOfFirst++;
 			}
-			
+
 		}
-		firstHabitResults[p] = countOfFirst/numberOfSamples;
+		firstHabitResults[p] = countOfFirst / numberOfSamples;
 	}
 	cout << endl << endl << "exporting to file..." << endl;
 	exportResultToCsv(firstHabitPList, firstHabitResults, "habit1Results.csv");
 	cout << "Done." << endl;
 
+}
+
+void secondHabbit(int numberOfSamples) {
 	/*
 	second habit - graph with 1000 vertex:
 				   _________
-				  |  2ln(V)     
+			      |  2ln(V)
 	threshold2 =  | -------   = 0.117539
-				 \|    V         
+  				 \|    V
 
 	*/
 
-
-	cout << "-------------------------------------------------" << endl;
+	cout << endl << "-------------------------------------------------" << endl;
 	cout << "                working on habit 2               " << endl;
 	cout << "-------------------------------------------------" << endl;
-	double secondHabitPList[] = { 0.075 ,0.08 ,0.085 ,0.09 ,0.1 ,0.2 ,0.25 ,0.3 ,0.35 ,0.4 };
+	double secondHabitPList[] = { 0.02 ,0.03 ,0.033 ,0.038 ,0.04 ,0.13 ,0.15 ,0.18 ,0.2 ,0.22 };
 	double* secondHabitResults = new double[10];
-	
+
 	for (int p = 0; p < 10; p++)
 	{
-		cout << endl << endl << "Probability: " << firstHabitPList[p] << endl;
+		cout << endl << endl << "Probability: " << secondHabitPList[p] << endl;
 		double countOfSecond = 0;
 		//cout << "generating graphs with probability: " << secondHabitPList[p] << endl;
 		for (int i = 0; i < numberOfSamples; i++)
@@ -103,9 +127,9 @@ void main() {
 	cout << endl << endl << "exporting to file..." << endl;
 	exportResultToCsv(secondHabitPList, secondHabitResults, "habit2Results.csv");
 	cout << "Done." << endl;
+}
 
-
-
+void thirdHabbit(int numberOfSamples) {
 	/*
 	third habit - graph with 1000 vertex:
 
@@ -114,16 +138,16 @@ void main() {
 				   V          1000
 	*/
 
-	cout << "-------------------------------------------------" << endl;
+	cout << endl << "-------------------------------------------------" << endl;
 	cout << "                working on habit 3               " << endl;
 	cout << "-------------------------------------------------" << endl;
 
-	double thirdHabitPList[] = { 0.004 ,0.0045 ,0.005 ,0.0055 ,0.006 ,0.0075 ,0.008 ,0.0085 ,0.009 ,0.0095 };
+	double thirdHabitPList[] = { 0.002 ,0.0022 ,0.0027 ,0.003 ,0.0035 ,0.007 ,0.0072 ,0.0075 ,0.0077 ,0.0079 };
 	double* thirdHabitResults = new double[10];
 
 	for (int p = 0; p < 10; p++)
 	{
-		cout << endl << endl << "Probability: " << firstHabitPList[p] << endl;
+		cout << endl << endl << "Probability: " << thirdHabitPList[p] << endl;
 		double countOfthird = 0;
 		//cout << "generating graphs with probability: " << thirdHabitPList[p] << endl;
 		for (int i = 0; i < numberOfSamples; i++)
@@ -141,10 +165,7 @@ void main() {
 	cout << endl << endl << "exporting to file..." << endl;
 	exportResultToCsv(thirdHabitPList, thirdHabitResults, "habit3Results.csv");
 	cout << "Done." << endl;
-
 }
-
-
 
 //rand false/true for the prob
 bool random_bool_with_prob(double prob)
