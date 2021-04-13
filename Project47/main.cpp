@@ -29,15 +29,16 @@ std::uniform_real_distribution<> uniform_zero_to_one(0.0, 1.0);
 
 void main() {
 	int select = 0, loop = 0;
-	cout << "Erdos Renyi Model - Excersise" << endl << endl;
+	cout << "-----------------------------" << endl;
+	cout << "Erdos Renyi Model - Excersise" << endl;
+	cout << "-----------------------------" << endl << endl;
 	int numberOfSamples = 500;
 	cout << "number of sumples: " << numberOfSamples << endl;
-	cout << "Run menu once or cyclically?" << endl << "(Cyclically - enter 1): ";
+	//cout << "Run menu once or cyclically?" << endl << "(Cyclically - enter 1): ";
 	
-	
-	cin >> loop;
+	//cin >> loop;
 	do {
-		cout << endl << "Choose case (Habbit number 1 = 1, Habbit number 2 = 2, Habbit number 3 = 3): ";
+		cout << endl << "Choose case (Habbit number 1 = 1, Habbit number 2 = 2, Habbit number 3 = 3, Quit = -1): ";
 		cin >> select;
 
 		switch (select)
@@ -48,7 +49,10 @@ void main() {
 			break;
 		case 3: thirdHabbit(numberOfSamples);
 			break;
+		case -1: loop = 0;
+			break;
 		}
+
 	} while (loop == 1);
 }
 
