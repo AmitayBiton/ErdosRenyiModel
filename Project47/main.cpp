@@ -35,8 +35,9 @@ void main() {
 	*/
 	int numberOfSamples = 15;
 
-
-
+	cout << "-------------------------------------------------" << endl;
+	cout << "                working on habit 1               " << endl;
+	cout << "-------------------------------------------------" << endl;
 	double firstHabitPList[] = { 0.004 ,0.0045 ,0.005 ,0.0055 ,0.006 ,0.0075 ,0.008 ,0.0085 ,0.009 ,0.0095 };
 	double* firstHabitResults = new double[10];
 	
@@ -44,7 +45,7 @@ void main() {
 	for (int p = 0; p < 10; p++) 
 	{
 		double countOfFirst = 0;
-		cout << "generating graphs with probability: " << firstHabitPList[p] << endl;
+		//cout << "generating graphs with probability: " << firstHabitPList[p] << endl;
 		for (int i = 0; i < numberOfSamples; i++)
 		{
 			Graph g = build_random_graph(1000, firstHabitPList[p]);
@@ -69,13 +70,17 @@ void main() {
 
 	*/
 
+	cout << "-------------------------------------------------" << endl;
+	cout << "                working on habit 2               " << endl;
+	cout << "-------------------------------------------------" << endl;
+
 	double secondHabitPList[] = { 0.075 ,0.08 ,0.085 ,0.09 ,0.1 ,0.2 ,0.25 ,0.3 ,0.35 ,0.4 };
 	double* secondHabitResults = new double[10];
 	
 	for (int p = 0; p < 10; p++)
 	{
 		double countOfSecond = 0;
-		cout << "generating graphs with probability: " << secondHabitPList[p] << endl;
+		//cout << "generating graphs with probability: " << secondHabitPList[p] << endl;
 		for (int i = 0; i < numberOfSamples; i++)
 		{
 			Graph g = build_random_graph(1000, secondHabitPList[p]);
@@ -100,57 +105,30 @@ void main() {
 				   V          1000
 	*/
 
-	
+	cout << "-------------------------------------------------" << endl;
+	cout << "                working on habit 3               " << endl;
+	cout << "-------------------------------------------------" << endl;
 
-	double* thirdHabitPList = new double[10];
-	thirdHabitPList[0] = 0.004;
-	thirdHabitPList[1] = 0.0045;
-	thirdHabitPList[2] = 0.005;
-	thirdHabitPList[3] = 0.0055;
-	thirdHabitPList[4] = 0.006;
-	thirdHabitPList[5] = 0.0075;
-	thirdHabitPList[6] = 0.008;
-	thirdHabitPList[7] = 0.0085;
-	thirdHabitPList[8] = 0.009;
-	thirdHabitPList[9] = 0.0095;
+	double thirdHabitPList[] = { 0.004 ,0.0045 ,0.005 ,0.0055 ,0.006 ,0.0075 ,0.008 ,0.0085 ,0.009 ,0.0095 };
+	double* thirdHabitResults = new double[10];
 
-	/*
-	TODO:
-	foreach p in thirdHabitPList genetate 500 graphs and detemine how many of them applies to habit 3
+	for (int p = 0; p < 10; p++)
+	{
+		double countOfthird = 0;
+		//cout << "generating graphs with probability: " << thirdHabitPList[p] << endl;
+		for (int i = 0; i < numberOfSamples; i++)
+		{
+			Graph g = build_random_graph(1000, thirdHabitPList[p]);
+			if (secondHabitApplies(g, thirdHabitPList[p]) == 1)
+			{
+				countOfthird++;
+			}
 
-	*/
+		}
+		thirdHabitResults[p] = countOfthird / numberOfSamples;
+	}
 
-
-
-	Graph g = build_random_graph(1000, 0.1);
-	Graph g2 = build_random_graph(1000, 0.25);
-
-	//g.print_graph();
-	//cout << endl << endl;
-	//g2.print_graph();
-	
-	double t1 = threshold1and3(g);
-	double t2 = threshold2(g);
-	cout << "threshold1 = ( ln(V)/V ) = " << t1 << endl;
-	cout << "threshold2 = ( sqrt(2*ln(V)/V) ) = " << t2 << endl;
-
-	cout << endl;
-	cout << "first habit applies to 'g' ? : " << firstHabitApplies(g, 0.1) << endl;
-	cout << "first habit applies to 'g2' ? : " << firstHabitApplies(g2, (double)0.25) << endl;
-	cout << endl;
-	cout << "second habit applies to 'g' ? : " << secondHabitApplies(g, 0.1) << endl;
-	cout << "second habit applies to 'g2' ? : " << secondHabitApplies(g2, (double)0.25) << endl;
-	cout << endl;
-	cout << "third habit applies to 'g' ? : " << thirdHabitApplies(g, 0.1) << endl;
-	cout << "third habit applies to 'g2' ? : " << thirdHabitApplies(g2, (double)0.25) << endl;
-
-
-	//cout << "Connectivity1: " << connectivity(g) << endl;
-	//cout << "Diameter1: " << diameter(g) << endl;
-	//cout << "Is isolated1: " << is_isolated(g) << endl;
-	//cout << "Connectivity2: " << connectivity(g2) << endl;
-	//cout << "Diameter2: " << diameter(g2) << endl;
-	//cout << "Is isolated2: " << is_isolated(g2) << endl;
+	exportResultToCsv(thirdHabitPList, thirdHabitResults, "habit3Results.csv");
 }
 
 
