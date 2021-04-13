@@ -35,7 +35,6 @@ void main() {
 	int numberOfSamples = 500;
 	cout << "number of sumples: " << numberOfSamples << endl;
 	//cout << "Run menu once or cyclically?" << endl << "(Cyclically - enter 1): ";
-	
 	//cin >> loop;
 	do {
 		cout << endl << "Choose case (Habbit number 1 = 1, Habbit number 2 = 2, Habbit number 3 = 3, Quit = -1): ";
@@ -52,7 +51,6 @@ void main() {
 		case -1: loop = 0;
 			break;
 		}
-
 	} while (loop == 1);
 }
 
