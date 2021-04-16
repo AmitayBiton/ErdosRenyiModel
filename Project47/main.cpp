@@ -277,54 +277,22 @@ double threshold2(Graph g)
 int firstHabitApplies(Graph g,double p) {
 	int isConnective = connectivity(g);
 	double thresh1 = threshold1and3(g);
-	if (p > thresh1)
+	if (( p > thresh1 && isConnective == 1 ) || ( p < thresh1 && isConnective == 0 ))
 	{
-		if (isConnective == 1)
-		{
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
+		return 1;
 	}
-	else //(p < thresh1)
-	{
-		if (isConnective == 0) {
-			return 1;
-		}
-		else 
-		{
-			return 0;
-		}
-	}
+	return 0;
 }
 int secondHabitApplies(Graph g, double p) 
 {
 	int diam = diameter(g);
 	double thresh2 = threshold2(g);
-	if ( p > thresh2 )
+
+	if ((p > thresh2 && diam == 2) || (p < thresh2 && diam > 2))
 	{
-		if( diam == 2 )
-		{
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
+		return 1;
 	}
-	else //(p < thresh2) 
-	{
-		if ( diam > 2 )
-		{
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
-	}
+	return 0;
 }
 
 int thirdHabitApplies(Graph g, double p)
@@ -332,29 +300,11 @@ int thirdHabitApplies(Graph g, double p)
 	int hasLonely = is_isolated(g);
 	double thresh3 = threshold1and3(g);
 
-	if (p < thresh3) {
-		if (hasLonely == 1) {
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
-	}
-	
-	else //(p > thresh3) 
+	if (( p < thresh3 && hasLonely ==1 ) || ( p > thresh3 && hasLonely == 0 ))
 	{
-		if (hasLonely == 0) 
-		{
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
+		return 1;
 	}
 	return 0;
-
 }
 
 
