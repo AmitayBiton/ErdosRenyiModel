@@ -28,7 +28,7 @@ std::uniform_real_distribution<> uniform_zero_to_one(0.0, 1.0);
 
 
 void main() {
-	int select = 0, loop = 0;
+	int select = 0, loop = 1;
 	cout << "-----------------------------" << endl;
 	cout << "Erdos Renyi Model - Excersise" << endl;
 	cout << "-----------------------------" << endl << endl;
@@ -107,7 +107,7 @@ void secondHabbit(int numberOfSamples) {
 	cout << endl << "-------------------------------------------------" << endl;
 	cout << "                working on habit 2               " << endl;
 	cout << "-------------------------------------------------" << endl;
-	double secondHabitPList[] = { 0.02 ,0.03 ,0.033 ,0.038 ,0.04 ,0.13 ,0.15 ,0.18 ,0.2 ,0.22 };
+	double secondHabitPList[] = { 0.01 ,0.025 ,0.05 ,0.075 ,0.1 ,0.2 ,0.25 ,0.3 ,0.35 ,0.4 };
 	double* secondHabitResults = new double[10];
 
 	for (int p = 0; p < 10; p++)
